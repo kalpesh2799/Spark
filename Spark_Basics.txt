@@ -1,0 +1,88 @@
+Spark Components
+1. Spark Core
+a. Basic functionality
+b. RDD definition
+2. Spark SQL
+a. Package to work with structured data
+b. Project Shark
+3. Spark Streaming
+a. Enables processing of live streams of data
+4. ML Lib
+a. Machine learning functionality
+b. Prebuilt ML algorithms
+5. GraphX
+a. Provides various operations for manipulating graphs
+*************************************************************
+
+How to install and start Spark (Pseudo mode)
+
+1. Untar your Spark tar over your machine
+2. Dir Structure
+a. Bin - contains the binaries to start
+b. Examples - contains examples for Spark
+c. Core, streaming, python etc - contains the required libs
+d. README.md - The readme file for Spark
+3. Start master
+a. $sbin/start-master.sh
+4. Start your master UI : localhost:8080
+a. Observe the master URL
+5. Start worker
+a. $sbin/start-slave.sh spark://master:7077
+6. Start workers ( edit in conf/slaves )
+a. $bin/start-slaves.sh spark://master:7077
+
+***************************************************************
+
+RDD - Resilient Distributed Datasets
+1. Immutable distributed collection of datasets
+2. Split into multiple partitions
+3. Partitions may or maynot be on a different node
+
+JavaRDD<String> lines = sc.parallelize(Arrays.asList("pandas", "i like pandas"));
+RDD lines = sc.parallelize(Arrays.asList("pandas", "i like pandas"))
+****************************************************************
+
+RDD Operations
+1. Transformations
+a. Return a new RDD
+b. E.g map, filter etc
+c. Lazy evaluation
+d. Returns an entirely new RDD
+2. Action
+a. Return a result to driver program or write it to storage
+b. E.g count(), first()
+c. Force evaluation of transformation
+ 
+********************************************************************
+
+Lambda Notations
+Java:
+ints.map(x -> x * x);
+Python:
+ints.map(lambda x : x * x)
+Scala:
+ints.map( x => x * x )
+
+***********************************************************
+
+Tuning level of parallelism
+1. RDDs are distributed
+2. RDDs have fixed number of partitions, that decide the parallelism
+3. Most of the operations accept a second argument to determine the number of 
+partitions that needs to be created.
+
+*********************************************************************
+
+Data Loading into Spark ( To be updated for 3.0.1)
+1. Following formats are supported
+a. Text File - SparkContext.textFile(“File_Path”)
+b. JSON - JavaRDD.mapPartitions( new MyJSONParser() )
+c. CSV - JavaPairRDD.flatMap( new MyCSVParser() )
+d. SequenceFiles - SparkContext.sequenceFile(File_Path, classOf[Key], 
+classOf[Value])
+e. Object Files - SparkContext.objectFile(“File_Path”)
+
+***********************************************************************
+
+
+
